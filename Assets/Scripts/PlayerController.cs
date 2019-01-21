@@ -16,27 +16,31 @@ public class PlayerController : MonoBehaviour {
     float speedSmoothVelocity;
     float gVelocity;
     bool isGround;
-
-    GameObject rayStartPoint;
+    
     Rigidbody rigidbody;
     Animator animator;
     BoxIK boxIK;
+    GameObject BoxCheckPoint;
+    GameObject PlaceCheckPoint;
+    GameObject cardBoardBox;
 
     void Start() {
-        rayStartPoint = transform.Find("RayStartPoint").gameObject;
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         boxIK = GetComponent<BoxIK>();
+        BoxCheckPoint = transform.Find("BoxCheckPoint").gameObject;
+        PlaceCheckPoint = transform.Find("PlaceCheckPoint").gameObject;
     }
 
     void FixedUpdate() {
         CheckIsGround();
-        Carry();
+        Lift();
+        Put();
         Move();
     }
 
     void CheckIsGround() {
-        Ray ray = new Ray(rayStartPoint.transform.position, transform.up * -1);
+        Ray ray = new Ray(BoxCheckPoint.transform.position, transform.up * -1);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, downRayDistance)) {
                 if (hit.collider.name.Equals("Floor")) {
@@ -77,19 +81,34 @@ public class PlayerController : MonoBehaviour {
         animator.SetFloat("speedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
     }
 
-    void Carry() {
-        Ray ray = new Ray(rayStartPoint.transform.position, transform.forward);
+    void Lift() {
+        Ray ray = new Ray(BoxCheckPoint.transform.position, transform.forward);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, frontRayDistance)) {
-            Debug.Log(hit.collider.gameObject);
-            if (Input.GetKeyDown(KeyCode.E) && hit.collider.tag.Equals("CardBoardBox")) {
-                // TODO: 段ボールを受け取る
-                GameObject cardBoardBox = hit.collider.gameObject;
+            if (Input.GetKeyDown(KeyCode.E) && 
+                hit.collider.tag.Equals("CardBoardBox") &&
+                cardBoardBox == null) {
+                cardBoardBox = hit.collider.gameObject;
                 cardBoardBox.transform.parent = this.transform;
                 cardBoardBox.transform.localPosition = new Vector3(0f, 1.369f, 0.599f);
                 cardBoardBox.transform.localRotation = Quaternion.Euler(-90f, 180f, 90f);
                 boxIK.leftHandTransform = cardBoardBox.transform.Find("LeftHand").transform;
                 boxIK.rightHandTransform = cardBoardBox.transform.Find("RightHand").transform;
+
+                BoxCheckPoint.transform.localPosition = new Vector3( 0, 0.75f, 0);
+            }
+        }
+    }
+
+    void Put() {
+        Ray ray = new Ray(PlaceCheckPoint.transform.position, transform.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, frontRayDistance)) {
+            Debug.Log(hit.collider.gameObject);
+            if (Input.GetKeyDown(KeyCode.E) && hit.collider.tag.Equals("Place")) {
+                Destroy(cardBoardBox);
+                boxIK.leftHandTransform = null;
+                boxIK.rightHandTransform = null;
             }
         }
     }

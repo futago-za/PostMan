@@ -103,9 +103,10 @@ public class PlayerController : MonoBehaviour {
                     boxIK.leftHandTransform = cardBoardBox.transform.Find("LeftHand").transform;
                     boxIK.rightHandTransform = cardBoardBox.transform.Find("RightHand").transform;
                     state = State.getBox;
-                }else if (hit.collider.name.Equals("Truck")) {
-                    cardBoardBox = GameObject.Find("GameDirector").GetComponent<BoxGenerator>().Generate(
-                        hit.collider.GetComponent<TruckController>().Pop());
+                }else if (hit.collider.name.Equals("Truck") &&
+                          hit.collider.GetComponent<TruckController>().truckInfo.SumWeight > 0) {
+                    cardBoardBox = GameObject.Find("GameDirector").GetComponent<BoxGenerator>().Generate();
+                    cardBoardBox.GetComponent<CardBoardBox>().SetValue(hit.collider.GetComponent<TruckController>().Pop());
                     cardBoardBox.transform.parent = this.transform;
                     cardBoardBox.transform.localPosition = new Vector3(0f, 1.369f, 0.599f);
                     cardBoardBox.transform.localRotation = Quaternion.Euler(-90f, 180f, 90f);
@@ -129,6 +130,14 @@ public class PlayerController : MonoBehaviour {
                 boxIK.rightHandTransform = null;
                 state = State.noGetBox;
             }
+        }
+    }
+
+    void OnTriggerStay(Collider other) {
+        if(other.name.Equals("Button") &&
+           Input.GetKeyDown(KeyCode.E) &&
+           GameObject.Find("Truck").GetComponent<TruckController>().stopping) {
+            GameObject.Find("Truck").GetComponent<TruckController>().Run();
         }
     }
 }

@@ -10,10 +10,4 @@ public class BoxGenerator : MonoBehaviour {
         GameObject boardBoard = Instantiate(cardBoardBoardPrefab) as GameObject;
         return boardBoard;
     }
-
-    public GameObject Generate(CardBoardBoxInfo cardBoardBoxInfo) {
-        GameObject boardBoard = Instantiate(cardBoardBoardPrefab) as GameObject;
-        boardBoard.GetComponent<CardBoardBox>().SetValue(cardBoardBoxInfo);
-        return boardBoard;
-    }
 }

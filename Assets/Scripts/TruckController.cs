@@ -5,33 +5,82 @@ using UnityEngine;
 public class TruckController : MonoBehaviour {
 
     public float moveSpeed = 2;
+    public int maxWeight = 20;
+    public TruckInfo truckInfo;
+    public bool stopping = true;    //停車しているか
 
-    Stack<CardBoardBoxInfo> cardBoardBoxInfos;
+    float span = 5.0f;
+    float delta = 0;
 
     Animator animator;
     
 	void Start () {
-        cardBoardBoxInfos = new Stack<CardBoardBoxInfo>();
+        truckInfo = new TruckInfo(Random.Range(9, maxWeight));
         animator = GetComponent<Animator>();
         animator.SetBool("isopen", true);
 	}
 	
 	void Update () {
-        if (Input.GetKey(KeyCode.Space)) {
-            animator.SetBool("isopen", false);
-        }
-
-        if (!animator.GetBool("isopen") && transform.position.x <= 15) {
-            transform.position += transform.forward * moveSpeed * Time.deltaTime;
+        if(transform.position.x >= 15) {
+            delta += Time.deltaTime;
+            if (delta > span) {
+                BackRun();
+                delta = 0f;
+            }
         }
 	}
 
+    public void Run() {
+        stopping = false;
+        IEnumerator coroutine = RunCoroutine();
+        StartCoroutine(coroutine);
+    }
+
+    IEnumerator RunCoroutine() {
+        animator.SetBool("isopen", false);
+        yield return null;
+        while (true) {
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
+                if (transform.position.x < 15) {
+                    transform.position += transform.forward * moveSpeed * Time.deltaTime;
+                    yield return null;
+                } else {
+                    yield break;
+                }
+            } else {
+                yield return null;
+            }
+        }
+    }
+
+    public void BackRun() {
+        IEnumerator coroutine = BackRunCoroutine();
+        StartCoroutine(coroutine);
+    }
+
+    IEnumerator BackRunCoroutine() {
+        while (true) {
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
+                if (transform.position.x > 8) {
+                    transform.position -= transform.forward * moveSpeed * Time.deltaTime;
+                    yield return null;
+                } else {
+                    break;
+                }
+            } else {
+                yield return null;
+            }
+        }
+        animator.SetBool("isopen", true);
+        stopping = true;
+        yield break;
+    }
+
     public void Push(CardBoardBoxInfo cardBoardBox) {
-        Debug.Log(cardBoardBox.Weight + "kg," + cardBoardBox.Price + "円");
-        cardBoardBoxInfos.Push(cardBoardBox);
+        truckInfo.Push(cardBoardBox);
     }
 
     public CardBoardBoxInfo Pop() {
-        return cardBoardBoxInfos.Pop();
+        return truckInfo.Pop();
     }
 }

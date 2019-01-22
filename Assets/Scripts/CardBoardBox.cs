@@ -9,7 +9,7 @@ public class CardBoardBox : MonoBehaviour {
     int[] weights = { 2, 3, 5, 6, 9 };
     int[] prices = { 200, 400, 700, 1000, 1400 };
 
-	void Start () {
+	void Awake () {
         int index = Random.Range(0, 5);
         cardBoardBoxInfo = new CardBoardBoxInfo(weights[index], prices[index]);
 	}

@@ -52,9 +52,10 @@ GameObject:
   - component: {fileID: 33494608318826348}
   - component: {fileID: 23395400706030740}
   - component: {fileID: 65113127768146202}
+  - component: {fileID: 114667308601031370}
   m_Layer: 0
   m_Name: CardBoardBox
-  m_TagString: Untagged
+  m_TagString: CardBoardBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,3 +155,14 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114667308601031370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1659661689982360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe2e0df3da052e4c97b0955c1cb33d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

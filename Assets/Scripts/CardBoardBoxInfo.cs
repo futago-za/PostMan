@@ -12,10 +12,12 @@ public class CardBoardBoxInfo {
     }
 
     public int Weight {
+        set { this.weight = value; }
         get { return this.weight; }
     }
 
     public int Price {
+        set { this.price = value; }
         get { return this.price; }
     }
 }

@@ -24,6 +24,8 @@ public class TruckController : MonoBehaviour {
         if(transform.position.x >= 15) {
             delta += Time.deltaTime;
             if (delta > span) {
+                GameObject.Find("GameDirector").GetComponent<GameDirector>().Save(truckInfo);
+                truckInfo = new TruckInfo(Random.Range(9, maxWeight));
                 BackRun();
                 delta = 0f;
             }
@@ -32,6 +34,7 @@ public class TruckController : MonoBehaviour {
 
     public void Run() {
         stopping = false;
+        GameObject.Find("GameDirector").GetComponent<GameDirector>().TurnGateEnable(!stopping);
         IEnumerator coroutine = RunCoroutine();
         StartCoroutine(coroutine);
     }
@@ -61,7 +64,7 @@ public class TruckController : MonoBehaviour {
     IEnumerator BackRunCoroutine() {
         while (true) {
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
-                if (transform.position.x > 8) {
+                if (transform.position.x > 5) {
                     transform.position -= transform.forward * moveSpeed * Time.deltaTime;
                     yield return null;
                 } else {
@@ -73,6 +76,7 @@ public class TruckController : MonoBehaviour {
         }
         animator.SetBool("isopen", true);
         stopping = true;
+        GameObject.Find("GameDirector").GetComponent<GameDirector>().TurnGateEnable(!stopping);
         yield break;
     }
 

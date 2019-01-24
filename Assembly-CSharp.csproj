@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\CardBoardBox.cs" />
     <Compile Include="Assets\Scripts\CardBoardBoxInfo.cs" />
     <Compile Include="Assets\Scripts\GameDirector.cs" />
+    <Compile Include="Assets\Scripts\PlaceBase.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\TruckController.cs" />
     <Compile Include="Assets\Scripts\TruckInfo.cs" />

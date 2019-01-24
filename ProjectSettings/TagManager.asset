@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CardBoardBox
   - Place
+  - BeltConveyor
   layers:
   - Default
   - TransparentFX

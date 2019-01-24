@@ -23,7 +23,6 @@ public class TruckInfo {
     }
 
     public void Push(CardBoardBoxInfo cardBoardBoxInfo) {
-        Debug.Log("トラックに積む      " + cardBoardBoxInfo.Weight + "kg," + cardBoardBoxInfo.Price + "円");
         sumWeight += cardBoardBoxInfo.Weight;
         cardBoardBoxInfos.Push(cardBoardBoxInfo);
     }

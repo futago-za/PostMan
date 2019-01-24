@@ -6,8 +6,9 @@ public class BoxGenerator : MonoBehaviour {
 
     public GameObject cardBoardBoardPrefab;
     
-    public GameObject Generate() {
+    public GameObject Generate(Vector3 createPosition) {
         GameObject boardBoard = Instantiate(cardBoardBoardPrefab) as GameObject;
+        boardBoard.transform.position = createPosition;
         return boardBoard;
     }
 }

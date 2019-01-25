@@ -1,17 +1,16 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TruckController : MonoBehaviour {
+class TruckController : PlaceBase {
 
-    public float moveSpeed = 2;
-    public int maxWeight = 20;
     public TruckInfo truckInfo;
-    public bool stopping = true;    //停車しているか
+    public bool isStopped = true;    //停車しているか
 
-    float span = 5.0f;
+    [SerializeField] int maxWeight = 20;
+    [SerializeField] float moveSpeed = 2;
+    [SerializeField] float span = 5.0f;
+
     float delta = 0;
-
     Animator animator;
     
 	void Start () {
@@ -33,8 +32,8 @@ public class TruckController : MonoBehaviour {
 	}
 
     public void Run() {
-        stopping = false;
-        GameObject.Find("GameDirector").GetComponent<GameDirector>().TurnGateEnable(!stopping);
+        isStopped = false;
+        GameObject.Find("GameDirector").GetComponent<GameDirector>().TurnGateEnable(!isStopped);
         IEnumerator coroutine = RunCoroutine();
         StartCoroutine(coroutine);
     }
@@ -75,16 +74,30 @@ public class TruckController : MonoBehaviour {
             }
         }
         animator.SetBool("isopen", true);
-        stopping = true;
-        GameObject.Find("GameDirector").GetComponent<GameDirector>().TurnGateEnable(!stopping);
+        isStopped = true;
+        GameObject.Find("GameDirector").GetComponent<GameDirector>().TurnGateEnable(!isStopped);
         yield break;
-    }
-
-    public void Push(CardBoardBoxInfo cardBoardBox) {
-        truckInfo.Push(cardBoardBox);
     }
 
     public CardBoardBoxInfo Pop() {
         return truckInfo.Pop();
+    }
+
+    public override bool hasBox() {
+        return false;
+    }
+
+    public override void SetBox(GameObject cardBoardBox) {
+        truckInfo.Push(cardBoardBox.GetComponent<CardBoardBox>().cardBoardBoxInfo);
+        Destroy(cardBoardBox);
+    }
+
+    public override GameObject GetBox() {
+        if (!truckInfo.CanPop())
+            return null;
+
+        GameObject cardBoardBox = GameObject.Find("GameDirector").GetComponent<BoxGenerator>().Generate(Vector3.zero);
+        cardBoardBox.GetComponent<CardBoardBox>().cardBoardBoxInfo = truckInfo.Pop();
+        return cardBoardBox;
     }
 }

@@ -1,23 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BeltConveyorController : PlaceBase {
+class BeltConveyorController : PlaceBase {
+
+    [SerializeField] Transform startPosition;
+    [SerializeField] Transform stopPosition;
+    [SerializeField] float moveSpeed= 2;
     
-    public float moveSpeed= 2;
-    public float createPositionX;
-
-    float createPositionZ = 6;
 	
 	void Update () {
         if(cardBoardBox == null) {
-            Vector3 createPosition = new Vector3(createPositionX, 0.838f, 5.5f);
-            Support(createPosition);
+            cardBoardBox = GameObject.Find("GameDirector").GetComponent<BoxGenerator>().Generate(startPosition.position);
         }
-
-        if (cardBoardBox.transform.position.z> 3.5) {
+        
+        float distance = (cardBoardBox.transform.position - stopPosition.position).magnitude;
+        if (distance > 0.05f) {
             cardBoardBox.transform.position -= transform.forward * moveSpeed * Time.deltaTime;
         }
 
+    }
+
+    public override bool hasBox() {
+        if (this.cardBoardBox == null)
+            return false;
+        return true;
+    }
+
+    public override void SetBox(GameObject cardBoardBox) {
+        this.cardBoardBox = cardBoardBox;
+    }
+
+    public override GameObject GetBox() {
+        GameObject rCardBoardBox = cardBoardBox;
+        cardBoardBox = null;
+        return rCardBoardBox;
     }
 }

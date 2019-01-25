@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BoxGenerator : MonoBehaviour {
 
-    public GameObject cardBoardBoardPrefab;
+    public GameObject cardBoardBoxPrefab;
     
     public GameObject Generate(Vector3 createPosition) {
-        GameObject boardBoard = Instantiate(cardBoardBoardPrefab) as GameObject;
-        boardBoard.transform.position = createPosition;
-        return boardBoard;
+        GameObject cardBoardBox = Instantiate(cardBoardBoxPrefab) as GameObject;
+        cardBoardBox.transform.position = createPosition;
+        return cardBoardBox;
     }
 }

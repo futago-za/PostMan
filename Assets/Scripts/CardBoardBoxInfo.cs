@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-public class CardBoardBoxInfo {
+﻿public class CardBoardBoxInfo {
 
     private int weight;
     private int price;

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
@@ -16,12 +14,7 @@ public class PlayerController : MonoBehaviour {
     float speedSmoothVelocity;
     float gVelocity;
     bool isGround;
-
-    public enum State {
-        getBox,         //段ボール箱を持っている状態
-        noGetBox,       //大ボール箱を持っていない状態
-    }
-    State state = State.noGetBox;
+    public bool isGetted = false;    //段ボール箱を持っているか
 
     Rigidbody rigidbody;
     Animator animator;
@@ -40,7 +33,7 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate() {
         CheckIsGround();
-        if (state == State.noGetBox) {
+        if (!isGetted) {
             Lift();
         } else {
             Put();
@@ -52,7 +45,7 @@ public class PlayerController : MonoBehaviour {
         Ray ray = new Ray(boxCheckPoint.transform.position, transform.up * -1);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, downRayDistance)) {
-                if (hit.collider.name.Equals("Floor")) {
+            if (hit.collider.name.Equals("Floor")) {
                 isGround = true;
                 return;
             }
@@ -94,41 +87,25 @@ public class PlayerController : MonoBehaviour {
         Ray ray = new Ray(boxCheckPoint.transform.position, transform.forward);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, frontRayDistance)) {
-            if (Input.GetKeyDown(KeyCode.E) && cardBoardBox == null) {
-                if (hit.collider.tag.Equals("BeltConveyor")) {
-                    GameObject beltConveyor = hit.collider.gameObject;
-                    cardBoardBox = beltConveyor.GetComponent<BeltConveyorController>().cardBoardBox;
-                    beltConveyor.GetComponent<BeltConveyorController>().cardBoardBox = null;
+            if (GetActionButton()) {
+                GameObject place = hit.collider.gameObject;
 
-                    cardBoardBox.transform.parent = this.transform;
-                    cardBoardBox.transform.localPosition = new Vector3(0f, 1.369f, 0.599f);
-                    cardBoardBox.transform.localRotation = Quaternion.Euler(-90f, 180f, 90f);
-                    boxIK.leftHandTransform = cardBoardBox.transform.Find("LeftHand").transform;
-                    boxIK.rightHandTransform = cardBoardBox.transform.Find("RightHand").transform;
-                    state = State.getBox;
-                }else if (hit.collider.name.Equals("Truck") &&
-                          hit.collider.GetComponent<TruckController>().truckInfo.SumWeight > 0) {
-                    cardBoardBox = GameObject.Find("GameDirector").GetComponent<BoxGenerator>().Generate(Vector3.zero);
-                    cardBoardBox.GetComponent<CardBoardBox>().SetValue(hit.collider.GetComponent<TruckController>().Pop());
+                if (place.tag.Equals("Wall"))
+                    return;
 
-                    cardBoardBox.transform.parent = this.transform;
-                    cardBoardBox.transform.localPosition = new Vector3(0f, 1.369f, 0.599f);
-                    cardBoardBox.transform.localRotation = Quaternion.Euler(-90f, 180f, 90f);
-                    boxIK.leftHandTransform = cardBoardBox.transform.Find("LeftHand").transform;
-                    boxIK.rightHandTransform = cardBoardBox.transform.Find("RightHand").transform;
-                    state = State.getBox;
-                }else if(hit.collider.tag.Equals("Place")){
-                    GameObject table = hit.collider.gameObject;
-                    cardBoardBox = table.GetComponent<PlaceBase>().cardBoardBox;
-                    table.GetComponent<PlaceBase>().cardBoardBox = null;
+                if (!place.GetComponent<PlaceBase>().hasBox())
+                    return;
 
-                    cardBoardBox.transform.parent = this.transform;
-                    cardBoardBox.transform.localPosition = new Vector3(0f, 1.369f, 0.599f);
-                    cardBoardBox.transform.localRotation = Quaternion.Euler(-90f, 180f, 90f);
-                    boxIK.leftHandTransform = cardBoardBox.transform.Find("LeftHand").transform;
-                    boxIK.rightHandTransform = cardBoardBox.transform.Find("RightHand").transform;
-                    state = State.getBox;
-                }
+                cardBoardBox = place.GetComponent<PlaceBase>().GetBox();
+                if (cardBoardBox == null)
+                    return;
+
+                cardBoardBox.transform.parent = this.transform;
+                cardBoardBox.transform.localPosition = new Vector3(0f, 1.369f, 0.599f);
+                cardBoardBox.transform.localRotation = Quaternion.Euler(-90f, 180f, 90f);
+                boxIK.leftHandTransform = cardBoardBox.transform.Find("LeftHand").transform;
+                boxIK.rightHandTransform = cardBoardBox.transform.Find("RightHand").transform;
+                isGetted = true;
             }
         }
     }
@@ -136,34 +113,36 @@ public class PlayerController : MonoBehaviour {
     void Put() {
         Ray ray = new Ray(placeCheckPoint.transform.position, transform.forward);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, frontRayDistance)) {
-            if (Input.GetKeyDown(KeyCode.E) && hit.collider.tag.Equals("Place")) {
-                CardBoardBoxInfo cardBoardBoxInfo = cardBoardBox.GetComponent<CardBoardBox>().cardBoardBoxInfo;
-                if (hit.collider.name.Equals("Truck")) {
-                    GameObject.Find("Truck").GetComponent<TruckController>().Push(cardBoardBoxInfo);
-                } else {    // 机に置くとき
-                    GameObject placeArea = hit.collider.gameObject;
-                    if (placeArea.GetComponent<PlaceBase>().cardBoardBox != null)
-                        return;
+        if (Physics.Raycast(ray, out hit, frontRayDistance) && GetActionButton()) {
+            GameObject place = hit.collider.gameObject;
 
-                    GameObject newCardBoardBox = GameObject.Find("GameDirector").GetComponent<BoxGenerator>().Generate(Vector3.zero);
-                    Vector3 targetPos = this.transform.position + transform.forward;
-                    newCardBoardBox.transform.position = new Vector3(Mathf.RoundToInt(targetPos.x), 0.838f, Mathf.RoundToInt(targetPos.z));
-                    placeArea.GetComponent<PlaceBase>().cardBoardBox = newCardBoardBox;
-                }
-                Destroy(cardBoardBox);
-                boxIK.leftHandTransform = null;
-                boxIK.rightHandTransform = null;
-                state = State.noGetBox;
-            }
+            if (place.tag.Equals("BeltConveyor") || place.tag.Equals("Wall"))
+                return;
+
+            if (place.GetComponent<PlaceBase>().hasBox())
+                return;
+
+            TruckInfo truckInfo = GameObject.Find("Truck").GetComponent<TruckController>().truckInfo;
+            int weight = cardBoardBox.GetComponent<CardBoardBox>().cardBoardBoxInfo.Weight;
+            if (place.name.Equals("Truck") && truckInfo.SumWeight + weight > truckInfo.MaxWeight)
+                return;
+
+            place.GetComponent<PlaceBase>().SetBox(cardBoardBox);
+            boxIK.leftHandTransform = null;
+            boxIK.rightHandTransform = null;
+            isGetted = false;
         }
     }
 
     void OnTriggerStay(Collider other) {
         if(other.name.Equals("Button") &&
-           Input.GetKeyDown(KeyCode.E) &&
-           GameObject.Find("Truck").GetComponent<TruckController>().stopping) {
+           GetActionButton() &&
+           GameObject.Find("Truck").GetComponent<TruckController>().isStopped) {
             GameObject.Find("Truck").GetComponent<TruckController>().Run();
         }
+    }
+
+    bool GetActionButton() {
+        return Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Fire1");
     }
 }

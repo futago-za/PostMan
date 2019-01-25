@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BoxIK : MonoBehaviour {
-
-    // 左手位置用のTransform
+    
     public Transform leftHandTransform;
-    // 右手位置用のTransform
     public Transform rightHandTransform;
 
     private Animator animator;

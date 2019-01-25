@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public class TruckInfo {
 
@@ -31,5 +29,9 @@ public class TruckInfo {
         CardBoardBoxInfo cardBoardBoxInfo = cardBoardBoxInfos.Pop();
         sumWeight -= cardBoardBoxInfo.Weight;
         return cardBoardBoxInfo;
+    }
+
+    public bool CanPop() {
+        return cardBoardBoxInfos.Count <= 0 ? false : true;
     }
 }

@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        GameObject.Find("GameDirector").GetComponent<DrawerFollowTarget>().Disappear();
         CheckIsGround();
         if (!isGetted) {
             Lift();
@@ -87,15 +88,16 @@ public class PlayerController : MonoBehaviour {
         Ray ray = new Ray(boxCheckPoint.transform.position, transform.forward);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, frontRayDistance)) {
+            GameObject place = hit.collider.gameObject;
+
+            if (place.tag.Equals("Wall"))
+                return;
+
+            if (!place.GetComponent<PlaceBase>().hasBox())
+                return;
+
+            GameObject.Find("GameDirector").GetComponent<DrawerFollowTarget>().Appear(place);
             if (GetActionButton()) {
-                GameObject place = hit.collider.gameObject;
-
-                if (place.tag.Equals("Wall"))
-                    return;
-
-                if (!place.GetComponent<PlaceBase>().hasBox())
-                    return;
-
                 cardBoardBox = place.GetComponent<PlaceBase>().GetBox();
                 if (cardBoardBox == null)
                     return;

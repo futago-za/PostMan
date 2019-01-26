@@ -8,4 +8,8 @@ abstract class PlaceBase : MonoBehaviour {
     public abstract bool hasBox();
     public abstract void SetBox(GameObject cardBoardbox);
     public abstract GameObject GetBox();
+
+    public CardBoardBoxInfo getCardBoardInfo() {
+        return cardBoardBox.GetComponent<CardBoardBox>().cardBoardBoxInfo;
+    }
 }

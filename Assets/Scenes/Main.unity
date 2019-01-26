@@ -398,11 +398,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1659661689982360, guid: e88169710c7890946abb4646b74c2c07,
     type: 2}
   m_PrefabInternal: {fileID: 921114573}
---- !u!4 &244220360 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4824877085596188, guid: e88169710c7890946abb4646b74c2c07,
-    type: 2}
-  m_PrefabInternal: {fileID: 921114573}
 --- !u!1 &266316693
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,7 +636,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100014, guid: ff6e452a53ea40f46899955378da3bb3, type: 3}
       propertyPath: m_TagString
-      value: Place
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: ff6e452a53ea40f46899955378da3bb3, type: 3}
       propertyPath: m_LocalRotation.x
@@ -694,7 +689,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 380081185}
-  - component: {fileID: 380081186}
   m_Layer: 5
   m_Name: Drawer
   m_TagString: Untagged
@@ -722,18 +716,6 @@ RectTransform:
   m_AnchoredPosition: {x: -49.999996, y: -15.000004}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0.35}
---- !u!114 &380081186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 380081184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52a0395f9628d9344b82216fefcd1a5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 244220360}
 --- !u!1 &406478354 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1659661689982360, guid: e88169710c7890946abb4646b74c2c07,
@@ -1328,6 +1310,7 @@ GameObject:
   - component: {fileID: 722129147}
   - component: {fileID: 722129149}
   - component: {fileID: 722129150}
+  - component: {fileID: 722129151}
   m_Layer: 0
   m_Name: GameDirector
   m_TagString: Untagged
@@ -1387,6 +1370,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minute: 1
   seconds: 30
+--- !u!114 &722129151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 722129146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a0395f9628d9344b82216fefcd1a5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawer: {fileID: 380081184}
+  targetPos: {x: 0, y: 0, z: 0}
 --- !u!1 &802539244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2258,7 +2254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3179,7 +3175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

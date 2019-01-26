@@ -23,7 +23,7 @@ class TruckController : PlaceBase {
         if(transform.position.x >= 15) {
             delta += Time.deltaTime;
             if (delta > span) {
-                GameObject.Find("GameDirector").GetComponent<GameDirector>().Save(truckInfo);
+                GameObject.Find("GameDirector").GetComponent<MainGameController>().Save(truckInfo);
                 truckInfo = new TruckInfo(Random.Range(9, maxWeight));
                 BackRun();
                 delta = 0f;

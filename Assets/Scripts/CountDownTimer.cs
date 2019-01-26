@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CountDownTimer : MonoBehaviour {
 
@@ -18,7 +19,7 @@ public class CountDownTimer : MonoBehaviour {
 	
 	void Update () {
 		if(totalTime <= 0f) {
-            return;
+            SceneManager.LoadScene("Result");
         }
 
         totalTime = minute * 60 + seconds;

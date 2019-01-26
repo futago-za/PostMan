@@ -6,12 +6,10 @@ public class GameDirector : MonoBehaviour {
 
     public GameObject truck;
     public GameObject gate;
-    public List<TruckInfo> truckInfos;
 
     Text weightText;
 
 	void Start () {
-        truckInfos = new List<TruckInfo>();
         weightText = GameObject.Find("WeightText").GetComponent<Text>();
 	}
 	
@@ -22,9 +20,5 @@ public class GameDirector : MonoBehaviour {
 
     public void TurnGateEnable(bool enable) {
         gate.SetActive(enable);
-    }
-
-    public void Save(TruckInfo truckInfo) {
-        truckInfos.Add(truckInfo);
     }
 }

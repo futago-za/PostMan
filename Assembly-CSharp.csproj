@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\CardBoardBox.cs" />
     <Compile Include="Assets\Scripts\CardBoardBoxInfo.cs" />
     <Compile Include="Assets\Scripts\CountDownTimer.cs" />
+    <Compile Include="Assets\Scripts\CursorController.cs" />
     <Compile Include="Assets\Scripts\DrawerFollowTarget.cs" />
     <Compile Include="Assets\Scripts\GameDirector.cs" />
     <Compile Include="Assets\Scripts\MainGameController.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ScrollController.cs" />
     <Compile Include="Assets\Scripts\TableController.cs" />
+    <Compile Include="Assets\Scripts\TitleController.cs" />
     <Compile Include="Assets\Scripts\TruckController.cs" />
     <Compile Include="Assets\Scripts\TruckInfo.cs" />
     <Reference Include="UnityEditor.StandardEvents">

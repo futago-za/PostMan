@@ -27,7 +27,7 @@ public class CursorController : MonoBehaviour {
         int select = (int)Mathf.Abs(rectTransform.localPosition.y / 50);
         switch (select) {
             case 0:
-                SceneManager.LoadScene("Main");
+                SceneManager.LoadScene("StageSelect");
                 break;
             case 1:
                 //SceneManager.LoadScene("Result");

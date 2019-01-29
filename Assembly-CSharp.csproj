@@ -74,8 +74,9 @@
     <Compile Include="Assets\Scripts\PlaceBase.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ScrollController.cs" />
+    <Compile Include="Assets\Scripts\SelectController.cs" />
+    <Compile Include="Assets\Scripts\StageBoxesController.cs" />
     <Compile Include="Assets\Scripts\TableController.cs" />
-    <Compile Include="Assets\Scripts\TitleController.cs" />
     <Compile Include="Assets\Scripts\TruckController.cs" />
     <Compile Include="Assets\Scripts\TruckInfo.cs" />
     <Reference Include="UnityEditor.StandardEvents">

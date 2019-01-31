@@ -61,24 +61,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BeltConveyorController.cs" />
-    <Compile Include="Assets\Scripts\BoxGenerator.cs" />
-    <Compile Include="Assets\Scripts\BoxIK.cs" />
-    <Compile Include="Assets\Scripts\CardBoardBox.cs" />
-    <Compile Include="Assets\Scripts\CardBoardBoxInfo.cs" />
-    <Compile Include="Assets\Scripts\CountDownTimer.cs" />
-    <Compile Include="Assets\Scripts\CursorController.cs" />
-    <Compile Include="Assets\Scripts\DrawerFollowTarget.cs" />
-    <Compile Include="Assets\Scripts\GameDirector.cs" />
-    <Compile Include="Assets\Scripts\MainGameController.cs" />
-    <Compile Include="Assets\Scripts\PlaceBase.cs" />
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\ScrollController.cs" />
-    <Compile Include="Assets\Scripts\SelectController.cs" />
-    <Compile Include="Assets\Scripts\StageBoxesController.cs" />
-    <Compile Include="Assets\Scripts\TableController.cs" />
-    <Compile Include="Assets\Scripts\TruckController.cs" />
-    <Compile Include="Assets\Scripts\TruckInfo.cs" />
+    <Compile Include="Assets\Scripts\FadeController.cs" />
+    <Compile Include="Assets\Scripts\Main\BeltConveyorController.cs" />
+    <Compile Include="Assets\Scripts\Main\BoxGenerator.cs" />
+    <Compile Include="Assets\Scripts\Main\BoxIK.cs" />
+    <Compile Include="Assets\Scripts\Main\CardBoardBox.cs" />
+    <Compile Include="Assets\Scripts\Main\CardBoardBoxInfo.cs" />
+    <Compile Include="Assets\Scripts\Main\CountDownTimer.cs" />
+    <Compile Include="Assets\Scripts\Main\DrawerFollowTarget.cs" />
+    <Compile Include="Assets\Scripts\Main\GameDirector.cs" />
+    <Compile Include="Assets\Scripts\Main\MainGameController.cs" />
+    <Compile Include="Assets\Scripts\Main\PlaceBase.cs" />
+    <Compile Include="Assets\Scripts\Main\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Main\TableController.cs" />
+    <Compile Include="Assets\Scripts\Main\TruckController.cs" />
+    <Compile Include="Assets\Scripts\Main\TruckInfo.cs" />
+    <Compile Include="Assets\Scripts\Result\ResultController.cs" />
+    <Compile Include="Assets\Scripts\Result\ScrollController.cs" />
+    <Compile Include="Assets\Scripts\StageSelect\SelectController.cs" />
+    <Compile Include="Assets\Scripts\StageSelect\StageBoxesController.cs" />
+    <Compile Include="Assets\Scripts\Title\CursorController.cs" />
+    <Compile Include="Assets\Scripts\Title\TitleController.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Daiki/Documents/Unity/PostMan/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        if (GameObject.Find("GameDirector").GetComponent<MainGameController>().GetIsDisplay())
+            return;
+
         GameObject.Find("GameDirector").GetComponent<DrawerFollowTarget>().Disappear();
         CheckIsGround();
         if (!isGetted) {
@@ -121,7 +124,7 @@ public class PlayerController : MonoBehaviour {
             if (place.tag.Equals("BeltConveyor") || place.tag.Equals("Wall"))
                 return;
 
-            if (place.GetComponent<PlaceBase>().hasBox())
+            if (!place.name.Equals("Truck") && place.GetComponent<PlaceBase>().hasBox())
                 return;
 
             TruckInfo truckInfo = GameObject.Find("Truck").GetComponent<TruckController>().truckInfo;

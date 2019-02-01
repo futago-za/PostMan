@@ -23,6 +23,9 @@ class TruckController : PlaceBase {
         if(transform.position.x >= 15) {
             delta += Time.deltaTime;
             if (delta > span) {
+                if(truckInfo.SumWeight == 0) {
+                    truckInfo.Push(new CardBoardBoxInfo(0, 0));
+                }
                 GameObject.Find("GameDirector").GetComponent<MainGameController>().Save(truckInfo);
                 truckInfo = new TruckInfo(Random.Range(9, maxWeight));
                 BackRun();
@@ -84,7 +87,7 @@ class TruckController : PlaceBase {
     }
 
     public override bool hasBox() {
-        return false;
+        return truckInfo.CanPop();
     }
 
     public override void SetBox(GameObject cardBoardBox) {

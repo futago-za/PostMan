@@ -5,24 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class TitleController : MonoBehaviour {
 
-    [SerializeField] private GameObject loadUI;
-    [SerializeField] private Slider slider;
-    private AsyncOperation async;
-    private string loadSceneName;
-
-    public void NextScene(string loadSceneName) {
-        this.loadSceneName = loadSceneName;
-        loadUI.SetActive(true);
-        StartCoroutine("LoadData");
+    void Start() {
+        GetComponent<FadeController>().FadeIn();
     }
 
-    IEnumerator LoadData() {
-        async = SceneManager.LoadSceneAsync(loadSceneName);
+    public void OnClickOnePlayerButton() {
+        if (!GetComponent<FadeController>().GetIsFading())
+            GetComponent<FadeController>().FadeOut("StageSelect");
+    }
 
-        while (!async.isDone) {
-            float progressVal = Mathf.Clamp01(async.progress / 0.9f);
-            slider.value = progressVal;
-            yield return null;
-        }
+    public void OnClickTwoPlayerButton() {
+        //if(!GetComponent<FadeController>().GetIsFading())
+        //GetComponent<FadeController>().FadeOut("Title");
+    }
+
+    public void OnClickTutorialText() {
+        //if (!GetComponent<FadeController>().GetIsFading()
+        //GetComponent<FadeController>().FadeOut("StageSelect");
+    }
+
+    public void OnClickQuitText() {
+        if (!GetComponent<FadeController>().GetIsFading())
+            Application.Quit();
     }
 }

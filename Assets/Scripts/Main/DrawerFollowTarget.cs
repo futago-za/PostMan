@@ -23,6 +23,9 @@ public class DrawerFollowTarget : MonoBehaviour {
         if (!place.GetComponent<PlaceBase>().hasBox())
             return;
 
+        if (place.name.Equals("Truck"))
+            return;
+
         drawer.SetActive(true);
 
         if (place.tag.Equals("BeltConveyor")) {

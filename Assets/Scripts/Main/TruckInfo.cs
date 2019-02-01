@@ -32,6 +32,6 @@ public class TruckInfo {
     }
 
     public bool CanPop() {
-        return cardBoardBoxInfos.Count <= 0 ? false : true;
+        return cardBoardBoxInfos.Count == 0 ? false : true;
     }
 }

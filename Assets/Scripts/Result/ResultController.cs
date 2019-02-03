@@ -16,11 +16,10 @@ public class ResultController : MonoBehaviour {
     private List<TruckInfo> truckInfos;
     private int sumPrice = 0;
     private int sumBonus = 0;
-    private int score = 0;
     private bool isDrawn = false;
 
 	void Start () {
-        GameObject.Find("ResultController").GetComponent<FadeController>().FadeIn();
+        GetComponent<FadeController>().FadeIn();
         truckInfos = MainGameController.getTruckInfos();
     }
 	
@@ -69,7 +68,7 @@ public class ResultController : MonoBehaviour {
     }
 
     public void OnClickStageButton() {
-        GetComponent<FadeController>().FadeOut("StageSelect");
+        GetComponent<FadeController>().FadeOut("StageSelect1");
     }
 
     public void OnClickTitleButton() {

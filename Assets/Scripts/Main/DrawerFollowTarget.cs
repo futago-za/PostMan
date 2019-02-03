@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class DrawerFollowTarget : MonoBehaviour {
 
+    [SerializeField] private Camera camera;
     [SerializeField] private GameObject drawer;
     [SerializeField] private Vector3 targetPos;
 
@@ -15,15 +16,15 @@ public class DrawerFollowTarget : MonoBehaviour {
 	}
 	
 	void Update () {
-        rectTransform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, targetPos);
-        rectTransform.position += new Vector3(0, 30, 0);
+        rectTransform.position = RectTransformUtility.WorldToScreenPoint(camera, targetPos);
+        rectTransform.position += new Vector3(0, 15, 0);
 	}
 
     public void Appear(GameObject place) {
         if (!place.GetComponent<PlaceBase>().hasBox())
             return;
 
-        if (place.name.Equals("Truck"))
+        if (place.tag.Equals("Truck"))
             return;
 
         drawer.SetActive(true);

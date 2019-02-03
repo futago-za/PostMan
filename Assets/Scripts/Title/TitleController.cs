@@ -11,12 +11,12 @@ public class TitleController : MonoBehaviour {
 
     public void OnClickOnePlayerButton() {
         if (!GetComponent<FadeController>().GetIsFading())
-            GetComponent<FadeController>().FadeOut("StageSelect");
+            GetComponent<FadeController>().FadeOut("StageSelect1");
     }
 
     public void OnClickTwoPlayerButton() {
-        //if(!GetComponent<FadeController>().GetIsFading())
-        //GetComponent<FadeController>().FadeOut("Title");
+        if(!GetComponent<FadeController>().GetIsFading())
+            GetComponent<FadeController>().FadeOut("StageSelect2");
     }
 
     public void OnClickTutorialText() {

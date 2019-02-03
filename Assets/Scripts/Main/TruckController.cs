@@ -2,32 +2,37 @@
 using UnityEngine;
 
 class TruckController : PlaceBase {
+    
+    [SerializeField] int maxWeight = 20;
+    [SerializeField] float moveSpeed = 2;
+    [SerializeField] float span = 5.0f;
+    [SerializeField] GameObject gate;
 
     public TruckInfo truckInfo;
     public bool isStopped = true;    //停車しているか
 
-    [SerializeField] int maxWeight = 20;
-    [SerializeField] float moveSpeed = 2;
-    [SerializeField] float span = 5.0f;
-
-    float delta = 0;
     Animator animator;
+    float delta = 0;
+    float targetX;      //発進後の目標値
+    float stopX;        //停車位置
     
 	void Start () {
-        truckInfo = new TruckInfo(Random.Range(9, maxWeight));
+        truckInfo = new TruckInfo(Random.Range(9, maxWeight), this.name);
         animator = GetComponent<Animator>();
         animator.SetBool("isopen", true);
+        stopX = transform.position.x;
+        targetX = stopX + 15;
 	}
 	
 	void Update () {
-        if(transform.position.x >= 15) {
+        if(transform.position.x >= targetX) {
             delta += Time.deltaTime;
             if (delta > span) {
                 if(truckInfo.SumWeight == 0) {
                     truckInfo.Push(new CardBoardBoxInfo(0, 0));
                 }
                 GameObject.Find("GameDirector").GetComponent<MainGameController>().Save(truckInfo);
-                truckInfo = new TruckInfo(Random.Range(9, maxWeight));
+                truckInfo = new TruckInfo(Random.Range(9, maxWeight), this.name);
                 BackRun();
                 delta = 0f;
             }
@@ -36,7 +41,7 @@ class TruckController : PlaceBase {
 
     public void Run() {
         isStopped = false;
-        GameObject.Find("GameDirector").GetComponent<GameDirector>().TurnGateEnable(!isStopped);
+        gate.SetActive(true);
         IEnumerator coroutine = RunCoroutine();
         StartCoroutine(coroutine);
     }
@@ -46,7 +51,7 @@ class TruckController : PlaceBase {
         yield return null;
         while (true) {
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
-                if (transform.position.x < 15) {
+                if (transform.position.x < targetX) {
                     transform.position += transform.forward * moveSpeed * Time.deltaTime;
                     yield return null;
                 } else {
@@ -66,7 +71,7 @@ class TruckController : PlaceBase {
     IEnumerator BackRunCoroutine() {
         while (true) {
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
-                if (transform.position.x > 5) {
+                if (transform.position.x > stopX) {
                     transform.position -= transform.forward * moveSpeed * Time.deltaTime;
                     yield return null;
                 } else {
@@ -78,7 +83,7 @@ class TruckController : PlaceBase {
         }
         animator.SetBool("isopen", true);
         isStopped = true;
-        GameObject.Find("GameDirector").GetComponent<GameDirector>().TurnGateEnable(!isStopped);
+        gate.SetActive(false);
         yield break;
     }
 

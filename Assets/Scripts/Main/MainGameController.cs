@@ -9,6 +9,7 @@ public class MainGameController : MonoBehaviour {
     [SerializeField] private Sprite readySprite;
     [SerializeField] private Sprite goSprite;
     [SerializeField] private Sprite finishSprite;
+    [SerializeField] private string nextScene;
 
     public static List<TruckInfo> truckInfos;
 
@@ -60,7 +61,7 @@ public class MainGameController : MonoBehaviour {
             yield return new WaitForSeconds(0.01f);
         }
         yield return new WaitForSeconds(1.5f);
-        GetComponent<FadeController>().FadeOut("Result");
+        GetComponent<FadeController>().FadeOut(nextScene);
         yield break;
     }
 

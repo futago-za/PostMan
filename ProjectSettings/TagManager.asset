@@ -8,6 +8,8 @@ TagManager:
   - Place
   - BeltConveyor
   - Wall
+  - Truck
+  - Button
   layers:
   - Default
   - TransparentFX

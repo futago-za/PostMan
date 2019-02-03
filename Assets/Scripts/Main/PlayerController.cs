@@ -2,6 +2,12 @@
 
 public class PlayerController : MonoBehaviour {
 
+    [SerializeField] private string horizontalString;
+    [SerializeField] private string verticalString;
+    [SerializeField] private string fire1String;
+    [SerializeField] private GameObject truck;
+    [SerializeField] private GameObject DrawerController;
+
     public float moveSpeed = 5f;
     public float turnSmoothTime = 0.2f;
     public float speedSmoothTime = 0.1f;
@@ -35,7 +41,7 @@ public class PlayerController : MonoBehaviour {
         if (GameObject.Find("GameDirector").GetComponent<MainGameController>().GetIsDisplay())
             return;
 
-        GameObject.Find("GameDirector").GetComponent<DrawerFollowTarget>().Disappear();
+        DrawerController.GetComponent<DrawerFollowTarget>().Disappear();
         CheckIsGround();
         if (!isGetted) {
             Lift();
@@ -58,7 +64,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Move() {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 movement = new Vector3(Input.GetAxis(horizontalString), 0, Input.GetAxis(verticalString));
         Vector3 movementDir = movement.normalized;
 
         if (movementDir != Vector3.zero) {
@@ -93,14 +99,14 @@ public class PlayerController : MonoBehaviour {
         if(Physics.Raycast(ray, out hit, frontRayDistance)) {
             GameObject place = hit.collider.gameObject;
 
-            if (place.tag.Equals("Wall"))
+            if (place.tag.Equals("Wall") || place.tag.Equals("Button"))
                 return;
 
             if (!place.GetComponent<PlaceBase>().hasBox())
                 return;
 
-            GameObject.Find("GameDirector").GetComponent<DrawerFollowTarget>().Appear(place);
-            if (GetActionButton()) {
+            DrawerController.GetComponent<DrawerFollowTarget>().Appear(place);
+            if (Input.GetButtonDown(fire1String)) {
                 cardBoardBox = place.GetComponent<PlaceBase>().GetBox();
                 if (cardBoardBox == null)
                     return;
@@ -118,18 +124,18 @@ public class PlayerController : MonoBehaviour {
     void Put() {
         Ray ray = new Ray(placeCheckPoint.transform.position, transform.forward);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, frontRayDistance) && GetActionButton()) {
+        if (Physics.Raycast(ray, out hit, frontRayDistance) && Input.GetButtonDown(fire1String)) {
             GameObject place = hit.collider.gameObject;
 
             if (place.tag.Equals("BeltConveyor") || place.tag.Equals("Wall"))
                 return;
 
-            if (!place.name.Equals("Truck") && place.GetComponent<PlaceBase>().hasBox())
+            if (!place.tag.Equals("Truck") && place.GetComponent<PlaceBase>().hasBox())
                 return;
 
-            TruckInfo truckInfo = GameObject.Find("Truck").GetComponent<TruckController>().truckInfo;
+            TruckInfo truckInfo = truck.GetComponent<TruckController>().truckInfo;
             int weight = cardBoardBox.GetComponent<CardBoardBox>().cardBoardBoxInfo.Weight;
-            if (place.name.Equals("Truck") && truckInfo.SumWeight + weight > truckInfo.MaxWeight)
+            if (place.tag.Equals("Truck") && truckInfo.SumWeight + weight > truckInfo.MaxWeight)
                 return;
 
             place.GetComponent<PlaceBase>().SetBox(cardBoardBox);
@@ -140,14 +146,10 @@ public class PlayerController : MonoBehaviour {
     }
 
     void OnTriggerStay(Collider other) {
-        if(other.name.Equals("Button") &&
-           GetActionButton() &&
-           GameObject.Find("Truck").GetComponent<TruckController>().isStopped) {
-            GameObject.Find("Truck").GetComponent<TruckController>().Run();
+        if(other.tag.Equals("Button") &&
+           Input.GetButtonDown(fire1String) &&
+           truck.GetComponent<TruckController>().isStopped) {
+           truck.GetComponent<TruckController>().Run();
         }
-    }
-
-    bool GetActionButton() {
-        return Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Fire1");
     }
 }

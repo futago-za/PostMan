@@ -41,7 +41,12 @@ public class ResultController : MonoBehaviour {
         int count = 1;
         foreach (TruckInfo truckInfo in truckInfos) {
             truckNum.text = count.ToString() + "台目";
-            int price = truckInfo.Pop().Price;
+
+            int price = 0;
+            while (truckInfo.CanPop()) {
+                price += truckInfo.Pop().Price;
+            }
+
             plusPrice.text = "+" + price.ToString() + "円";
             for (float i = 0; i < price; i += 10) {
                 sumPrice += 10;

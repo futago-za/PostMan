@@ -61,6 +61,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\BaseGameController.cs" />
+    <Compile Include="Assets\Scripts\DescriptionController.cs" />
     <Compile Include="Assets\Scripts\FadeController.cs" />
     <Compile Include="Assets\Scripts\Main\BeltConveyorController.cs" />
     <Compile Include="Assets\Scripts\Main\BoxGenerator.cs" />
@@ -77,25 +79,24 @@
     <Compile Include="Assets\Scripts\Main\TruckController.cs" />
     <Compile Include="Assets\Scripts\Main\TruckInfo.cs" />
     <Compile Include="Assets\Scripts\MultiGameDirector.cs" />
-    <Compile Include="Assets\Scripts\MultiResultController.cs" />
     <Compile Include="Assets\Scripts\MultiStageSelector.cs" />
+    <Compile Include="Assets\Scripts\Result\MultiResultController.cs" />
     <Compile Include="Assets\Scripts\Result\ResultController.cs" />
-    <Compile Include="Assets\Scripts\Result\ScrollController.cs" />
     <Compile Include="Assets\Scripts\StageSelect1\SelectController.cs" />
     <Compile Include="Assets\Scripts\StageSelect1\StageBoxesController.cs" />
     <Compile Include="Assets\Scripts\Title\CursorController.cs" />
     <Compile Include="Assets\Scripts\Title\TitleController.cs" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>D:/Unity/PostMan/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/Daiki/Documents/Unity/PostMan/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Unity/PostMan/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Daiki/Documents/Unity/PostMan/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/Unity/PostMan/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/Daiki/Documents/Unity/PostMan/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Unity/PostMan/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Daiki/Documents/Unity/PostMan/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

@@ -17,7 +17,7 @@ public class DrawerFollowTarget : MonoBehaviour {
 	
 	void Update () {
         rectTransform.position = RectTransformUtility.WorldToScreenPoint(camera, targetPos);
-        rectTransform.position += new Vector3(0, 15, 0);
+        rectTransform.position += new Vector3(0, 45, 0);
 	}
 
     public void Appear(GameObject place) {

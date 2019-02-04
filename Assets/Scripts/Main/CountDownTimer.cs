@@ -9,6 +9,7 @@ public class CountDownTimer : MonoBehaviour {
 
     float totalTime;
     float oldSeconds;
+    bool startFlag = true;
     Text timeText;
 
 	void Start () {
@@ -29,6 +30,9 @@ public class CountDownTimer : MonoBehaviour {
             Destroy(this);
         }
 
+        if (!startFlag)
+            return;
+
         totalTime = minute * 60 + seconds;
         totalTime -= Time.deltaTime;
 
@@ -40,4 +44,14 @@ public class CountDownTimer : MonoBehaviour {
         }
         oldSeconds = seconds;
 	}
+
+    public void Stop() {
+        startFlag = false;
+    }
+
+    public void Restart() {
+        startFlag = true;
+    }
+
+    
 }

@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (GameObject.Find("GameDirector").GetComponent<MainGameController>().GetIsDisplay())
+        if (GameObject.Find("GameDirector").GetComponent<BaseGameController>().GetIsDisplay())
             return;
 
         DrawerController.GetComponent<DrawerFollowTarget>().Disappear();

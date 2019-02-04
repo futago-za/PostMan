@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainGameController : MonoBehaviour {
+public class MainGameController : BaseGameController {
 
     [SerializeField] private GameObject signal;
+    [SerializeField] private GameObject selectForm;
     [SerializeField] private Sprite readySprite;
     [SerializeField] private Sprite goSprite;
     [SerializeField] private Sprite finishSprite;
@@ -22,7 +23,19 @@ public class MainGameController : MonoBehaviour {
         isDisplay = true;
         StartSignal();
     }
-    
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (selectForm.activeSelf) {
+                selectForm.SetActive(false);
+                GetComponent<CountDownTimer>().Restart();
+            } else {
+                selectForm.SetActive(true);
+                GetComponent<CountDownTimer>().Stop();
+            }
+        }
+    }
+
     public void StartSignal() {
         signalImage.sprite = readySprite;
         StartCoroutine("StartSignalCoroutine");
@@ -69,11 +82,23 @@ public class MainGameController : MonoBehaviour {
         return truckInfos;
     }
 
-    public void Save(TruckInfo truckInfo) {
+    public override void Save(TruckInfo truckInfo) {
         truckInfos.Add(truckInfo);
     }
 
-    public bool GetIsDisplay() {
+    public override bool GetIsDisplay() {
         return isDisplay;
+    }
+
+    public void OnBackButton() {
+        selectForm.SetActive(false);
+    }
+
+    public void OnClickStageButton() {
+        GetComponent<FadeController>().FadeOut("StageSelect1");
+    }
+
+    public void OnTitleButton() {
+        GetComponent<FadeController>().FadeOut("Title");
     }
 }

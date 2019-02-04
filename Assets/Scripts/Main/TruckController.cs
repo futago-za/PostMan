@@ -31,7 +31,7 @@ class TruckController : PlaceBase {
                 if(truckInfo.SumWeight == 0) {
                     truckInfo.Push(new CardBoardBoxInfo(0, 0));
                 }
-                GameObject.Find("GameDirector").GetComponent<MainGameController>().Save(truckInfo);
+                GameObject.Find("GameDirector").GetComponent<BaseGameController>().Save(truckInfo);
                 truckInfo = new TruckInfo(Random.Range(9, maxWeight), this.name);
                 BackRun();
                 delta = 0f;

@@ -16,11 +16,16 @@ public class ResultController : MonoBehaviour {
     private List<TruckInfo> truckInfos;
     private int sumPrice = 0;
     private int sumBonus = 0;
+    private int highScore = 0;
     private bool isDrawn = false;
 
 	void Start () {
         GetComponent<FadeController>().FadeIn();
         truckInfos = MainGameController.getTruckInfos();
+
+        int[] highScores = ScoreManager.LoadData(SelectController.stageNum);
+        highScore = highScores[SelectController.getSelectStageNum()];
+        highPriceText.text = highScore.ToString();
     }
 	
 	void Update () {
@@ -61,6 +66,12 @@ public class ResultController : MonoBehaviour {
         plusPrice.gameObject.SetActive(false);
         plusBonus.gameObject.SetActive(false);
         sumPriceText.text = (sumPrice + sumBonus).ToString() + "円";
+
+        if ((sumPrice + sumBonus) > highScore) {
+            int[] highScores = ScoreManager.LoadData(SelectController.stageNum);
+            highScores[SelectController.getSelectStageNum()] = sumPrice + sumBonus;
+            ScoreManager.SaveData(highScores);
+        }
 
         isDrawn = true;
         yield break;

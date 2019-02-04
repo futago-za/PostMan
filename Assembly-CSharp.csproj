@@ -80,8 +80,10 @@
     <Compile Include="Assets\Scripts\Main\TruckInfo.cs" />
     <Compile Include="Assets\Scripts\MultiGameDirector.cs" />
     <Compile Include="Assets\Scripts\MultiStageSelector.cs" />
+    <Compile Include="Assets\Scripts\PlayerPrefsX.cs" />
     <Compile Include="Assets\Scripts\Result\MultiResultController.cs" />
     <Compile Include="Assets\Scripts\Result\ResultController.cs" />
+    <Compile Include="Assets\Scripts\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\StageSelect1\SelectController.cs" />
     <Compile Include="Assets\Scripts\StageSelect1\StageBoxesController.cs" />
     <Compile Include="Assets\Scripts\Title\CursorController.cs" />

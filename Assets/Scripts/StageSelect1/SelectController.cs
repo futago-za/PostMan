@@ -6,21 +6,27 @@ using UnityEngine.SceneManagement;
 
 public class SelectController : MonoBehaviour {
 
-    [SerializeField] private int stageNum;
     [SerializeField] private float distance = 0.88f;
     [SerializeField] private GameObject leftArrow;
     [SerializeField] private GameObject rightArrow;
     [SerializeField] private GameObject stageName;
     [SerializeField] private GameObject stageBoxes;
+    [SerializeField] private Text highScoreText;
+
+    //ステージ数が増えるとこの値を大きくする
+    public static int stageNum = 2;
 
     Color leftArrowColor, rightArrowColor;
     Text stageText;
-    int nowSelectStage = 0;
+    static int nowSelectStage;
+    int[] highScores;
 
     void Start() {
+        nowSelectStage = 0;
         leftArrowColor = leftArrow.GetComponent<Image>().color;
         rightArrowColor = rightArrow.GetComponent<Image>().color;
         stageText = stageName.GetComponent<Text>();
+        highScores = ScoreManager.LoadData(stageNum);
 
         GameObject.Find("SelectController").GetComponent<FadeController>().FadeIn();
     }
@@ -40,7 +46,13 @@ public class SelectController : MonoBehaviour {
             rightArrowColor.a = 0.5f;
             rightArrow.GetComponent<Image>().color = rightArrowColor;
         }
+        
+        highScoreText.text = highScores[nowSelectStage].ToString();
 	}
+
+    public static int getSelectStageNum() {
+        return nowSelectStage;
+    }
 
     public void OnClickLeftAllow() {
         if (nowSelectStage == 0)

@@ -649,7 +649,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 10000
+  m_Text: 1000
 --- !u!222 &734927027
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -784,6 +784,7 @@ MonoBehaviour:
   rightArrow: {fileID: 973671015}
   stageName: {fileID: 2096190260}
   stageBoxes: {fileID: 1222969208}
+  highScoreText: {fileID: 734927026}
 --- !u!4 &824200270
 Transform:
   m_ObjectHideFlags: 0

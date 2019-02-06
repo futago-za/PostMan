@@ -60,6 +60,13 @@ public class MainGameController : BaseGameController {
     }
 
     public void finishSignal() {
+        isDisplay = true;
+        foreach (GameObject truck in GameObject.FindGameObjectsWithTag("Truck")) {
+            if (truck.GetComponent<TruckController>().isStopped && truck.GetComponent<TruckController>().truckInfo.SumWeight != 0) {
+                truck.GetComponent<TruckController>().Run();
+            }
+        }
+        
         signalImage.sprite = finishSprite;
         signal.transform.localScale = new Vector3(369.8f,91,0);
         StartCoroutine("FinishSignalCoroutine");
@@ -73,6 +80,19 @@ public class MainGameController : BaseGameController {
             yield return new WaitForSeconds(0.01f);
         }
         yield return new WaitForSeconds(1.5f);
+        while (true) {
+            bool saveFlag = false;
+            foreach (GameObject truck in GameObject.FindGameObjectsWithTag("Truck")) {
+                if (truck.GetComponent<TruckController>().truckInfo.SumWeight == 0) {
+                    saveFlag = true;
+                }
+            }
+
+            if (saveFlag)
+                break;
+
+            yield return null;
+        }
         GetComponent<FadeController>().FadeOut(nextScene);
         yield break;
     }

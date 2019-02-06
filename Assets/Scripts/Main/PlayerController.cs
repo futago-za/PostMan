@@ -38,8 +38,10 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (GameObject.Find("GameDirector").GetComponent<BaseGameController>().GetIsDisplay())
+        if (GameObject.Find("GameDirector").GetComponent<BaseGameController>().GetIsDisplay()) {
+            animator.SetFloat("speedPercent", 0);
             return;
+        }
 
         DrawerController.GetComponent<DrawerFollowTarget>().Disappear();
         CheckIsGround();

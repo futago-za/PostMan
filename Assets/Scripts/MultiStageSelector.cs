@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class MultiStageSelector: MonoBehaviour {
     
     [SerializeField] private GameObject stageName;
+    [SerializeField] private Image stageImage;
+    [SerializeField] private List<Sprite> sprite;
 
     Text stageText;
     int nowSelectStage = 0;
@@ -19,6 +21,8 @@ public class MultiStageSelector: MonoBehaviour {
     public void OnClickStageButton(int number) {
         stageText.text = "ステージ" + (number + 1).ToString();
         nowSelectStage = number;
+        stageImage.sprite = sprite[number];
+
     }
 
     public void OnClickBackButton() {

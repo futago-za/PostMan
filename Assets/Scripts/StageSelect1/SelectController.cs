@@ -14,7 +14,7 @@ public class SelectController : MonoBehaviour {
     [SerializeField] private Text highScoreText;
 
     //ステージ数が増えるとこの値を大きくする
-    public static int stageNum = 2;
+    public static int stageNum = 3;
 
     Color leftArrowColor, rightArrowColor;
     Text stageText;
@@ -77,15 +77,6 @@ public class SelectController : MonoBehaviour {
     }
 
     public void OnClickDecideButton() {
-        switch (nowSelectStage) {
-            case 0:
-                this.GetComponent<FadeController>().FadeOut("SinglePlay");
-                break;
-            case 1:
-                break;
-            default:
-                Debug.LogError("選択できません");
-                break;
-        }
+        GetComponent<FadeController>().FadeOut("SinglePlay" + (nowSelectStage+1));
     }
 }

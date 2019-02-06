@@ -24,6 +24,9 @@ public class MainGameController : BaseGameController {
     }
 
     private void Update() {
+        if (isDisplay)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Escape)) {
             if (selectForm.activeSelf) {
                 selectForm.SetActive(false);

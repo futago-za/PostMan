@@ -7,6 +7,7 @@ public class TitleController : MonoBehaviour {
 
     void Start() {
         GetComponent<FadeController>().FadeIn();
+        //PlayerPrefs.DeleteAll();
     }
 
     public void OnClickOnePlayerButton() {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseGameController : MonoBehaviour {
 
-    private bool isDisplay;
+    protected bool isDisplay;
 
     public virtual bool GetIsDisplay() {
         return false;

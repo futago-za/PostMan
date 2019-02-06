@@ -15,7 +15,6 @@ public class MainGameController : BaseGameController {
     public static List<TruckInfo> truckInfos;
 
     private Image signalImage;
-    private bool isDisplay;
 
     void Start() {
         truckInfos = new List<TruckInfo>();
@@ -42,7 +41,7 @@ public class MainGameController : BaseGameController {
     }
 
     private IEnumerator StartSignalCoroutine() {
-        while(GetComponent<FadeController>().GetIsFading())
+        while(GetComponent<GameDirector>().CheckStartFlag())
             yield return null;
         yield return new WaitForSeconds(1);
 

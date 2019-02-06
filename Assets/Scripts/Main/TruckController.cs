@@ -2,10 +2,12 @@
 using UnityEngine;
 
 class TruckController : PlaceBase {
-    
+
+    [SerializeField] int playerNum;
     [SerializeField] int maxWeight = 20;
     [SerializeField] float moveSpeed = 2;
     [SerializeField] float span = 5.0f;
+    [SerializeField] GameObject gameDirector;
     [SerializeField] GameObject gate;
 
     public TruckInfo truckInfo;
@@ -17,7 +19,7 @@ class TruckController : PlaceBase {
     float stopX;        //停車位置
     
 	void Start () {
-        truckInfo = new TruckInfo(Random.Range(9, maxWeight), this.name);
+        truckInfo = new TruckInfo(gameDirector.GetComponent<PrefabGenerator>().PopCreateTruckIndex(playerNum), this.name);
         animator = GetComponent<Animator>();
         animator.SetBool("isopen", true);
         stopX = transform.position.x;
@@ -31,8 +33,8 @@ class TruckController : PlaceBase {
                 if(truckInfo.SumWeight == 0) {
                     truckInfo.Push(new CardBoardBoxInfo(0, 0));
                 }
-                GameObject.Find("GameDirector").GetComponent<BaseGameController>().Save(truckInfo);
-                truckInfo = new TruckInfo(Random.Range(9, maxWeight), this.name);
+                gameDirector.GetComponent<BaseGameController>().Save(truckInfo);
+                truckInfo = new TruckInfo(gameDirector.GetComponent<PrefabGenerator>().PopCreateTruckIndex(playerNum), this.name);
                 BackRun();
                 delta = 0f;
             }
@@ -104,7 +106,7 @@ class TruckController : PlaceBase {
         if (!truckInfo.CanPop())
             return null;
 
-        GameObject cardBoardBox = GameObject.Find("GameDirector").GetComponent<BoxGenerator>().Generate(Vector3.zero);
+        GameObject cardBoardBox = gameDirector.GetComponent<BoxGenerator>().Generate(playerNum, Vector3.zero);
         cardBoardBox.GetComponent<CardBoardBox>().cardBoardBoxInfo = truckInfo.Pop();
         return cardBoardBox;
     }

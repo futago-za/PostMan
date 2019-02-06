@@ -20,8 +20,8 @@ public class TitleController : MonoBehaviour {
     }
 
     public void OnClickTutorialText() {
-        //if (!GetComponent<FadeController>().GetIsFading()
-        //GetComponent<FadeController>().FadeOut("StageSelect");
+        if (!GetComponent<FadeController>().GetIsFading())
+            GetComponent<FadeController>().FadeOut("Tutorial");
     }
 
     public void OnClickQuitText() {

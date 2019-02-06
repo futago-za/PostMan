@@ -16,4 +16,8 @@ public class GameDirector : MonoBehaviour {
         TruckInfo truckInfo = truck.GetComponent<TruckController>().truckInfo;
         weightText.text = truckInfo.SumWeight + "/" + truckInfo.MaxWeight;
 	}
+
+    public virtual bool CheckStartFlag() {
+        return !GetComponent<FadeController>().GetIsFading();
+    }
 }

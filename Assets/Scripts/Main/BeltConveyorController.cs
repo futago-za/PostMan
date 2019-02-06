@@ -2,6 +2,7 @@
 
 class BeltConveyorController : PlaceBase {
 
+    [SerializeField] int playerNum;
     [SerializeField] Transform startPosition;
     [SerializeField] Transform stopPosition;
     [SerializeField] float moveSpeed= 2;
@@ -9,7 +10,7 @@ class BeltConveyorController : PlaceBase {
 	
 	void Update () {
         if(cardBoardBox == null) {
-            cardBoardBox = GameObject.Find("GameDirector").GetComponent<BoxGenerator>().Generate(startPosition.position);
+            cardBoardBox = GameObject.Find("GameDirector").GetComponent<BoxGenerator>().Generate(playerNum, startPosition.position);
         }
         
         float distance = (cardBoardBox.transform.position - stopPosition.position).magnitude;

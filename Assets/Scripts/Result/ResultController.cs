@@ -47,15 +47,30 @@ public class ResultController : MonoBehaviour {
         foreach (TruckInfo truckInfo in truckInfos) {
             truckNum.text = count.ToString() + "台目";
 
+            bool bonusFlag = false;
             int price = 0;
+            float bonus = 0;
+
+            if (truckInfo.SumWeight == truckInfo.MaxWeight)
+                bonusFlag = true;
+
             while (truckInfo.CanPop()) {
                 price += truckInfo.Pop().Price;
             }
 
+            if (bonusFlag)
+                bonus = price * 0.5f;
+
             plusPrice.text = "+" + price.ToString() + "円";
-            for (float i = 0; i < price; i += 10) {
+            plusBonus.text = "+" + bonus.ToString() + "円";
+            for (int i = 0; i < price; i += 10) {
                 sumPrice += 10;
+                if(i < bonus) {
+                    sumBonus += 10;
+                }
+
                 priceText.text = sumPrice.ToString() + "円";
+                bonusText.text = sumBonus.ToString() + "円";
                 yield return null;
             }
             yield return new WaitForSeconds(1);

@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\MultiGameDirector.cs" />
     <Compile Include="Assets\Scripts\MultiStageSelector.cs" />
     <Compile Include="Assets\Scripts\PlayerPrefsX.cs" />
+    <Compile Include="Assets\Scripts\PrefabGenerator.cs" />
     <Compile Include="Assets\Scripts\Result\MultiResultController.cs" />
     <Compile Include="Assets\Scripts\Result\ResultController.cs" />
     <Compile Include="Assets\Scripts\ScoreManager.cs" />

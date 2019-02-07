@@ -84,14 +84,12 @@ public class MainGameController : BaseGameController {
         }
         yield return new WaitForSeconds(1.5f);
         while (true) {
-            bool saveFlag = false;
+            int weights = 0;
             foreach (GameObject truck in GameObject.FindGameObjectsWithTag("Truck")) {
-                if (truck.GetComponent<TruckController>().truckInfo.SumWeight == 0) {
-                    saveFlag = true;
-                }
+                weights += truck.GetComponent<TruckController>().truckInfo.SumWeight;
             }
 
-            if (saveFlag)
+            if (weights == 0)
                 break;
 
             yield return null;

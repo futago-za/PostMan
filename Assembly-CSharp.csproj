@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\BaseGameController.cs" />
     <Compile Include="Assets\Scripts\DescriptionController.cs" />
     <Compile Include="Assets\Scripts\FadeController.cs" />
+    <Compile Include="Assets\Scripts\FirstPlayManager.cs" />
     <Compile Include="Assets\Scripts\GameInitial.cs" />
     <Compile Include="Assets\Scripts\Main\BeltConveyorController.cs" />
     <Compile Include="Assets\Scripts\Main\BoxGenerator.cs" />

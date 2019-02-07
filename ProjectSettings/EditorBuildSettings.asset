@@ -30,8 +30,14 @@ EditorBuildSettings:
     path: Assets/Scenes/StageSelect2.unity
     guid: 5d25c5e20ca56f242b841d44e3b595e4
   - enabled: 1
-    path: Assets/Scenes/MultiPlay.unity
+    path: Assets/Scenes/MultiPlay1.unity
     guid: c9963853c8a8b424fb931153a58b8bb2
+  - enabled: 1
+    path: Assets/Scenes/MultiPlay2.unity
+    guid: 5a29d6ec36f53bf45989a120f5c3b5ff
+  - enabled: 1
+    path: Assets/Scenes/MultiPlay3.unity
+    guid: f5f796a49ee3b0745a864b8d14638508
   - enabled: 1
     path: Assets/Scenes/MultiResult.unity
     guid: 998195ab927e9894c8845c36e48c2ba3

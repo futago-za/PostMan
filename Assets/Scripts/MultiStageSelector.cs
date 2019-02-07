@@ -30,15 +30,6 @@ public class MultiStageSelector: MonoBehaviour {
     }
 
     public void OnClickDecideButton() {
-        switch (nowSelectStage) {
-            case 0:
-                this.GetComponent<FadeController>().FadeOut("MultiPlay");
-                break;
-            case 1:
-                break;
-            default:
-                Debug.LogError("選択できません");
-                break;
-        }
+        GetComponent<FadeController>().FadeOut("MultiPlay"+ (nowSelectStage+1));
     }
 }

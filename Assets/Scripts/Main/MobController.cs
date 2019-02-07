@@ -15,7 +15,6 @@ public class MobController : MonoBehaviour {
 
 
     void Update () {
-        Debug.Log(transform.position);
         transform.Translate(-0.0025f, 0, 0.025f);
         if(Mathf.Abs(transform.position.z) > 10) {
             Destroy(gameObject);

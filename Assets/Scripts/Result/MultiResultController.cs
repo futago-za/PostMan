@@ -15,6 +15,7 @@ public class MultiResultController : MonoBehaviour {
     [SerializeField] private Text result1Text;
     [SerializeField] private Text result2Text;
     [SerializeField] private GameObject selectForm;
+    [SerializeField] private Button confirmButton;
 
     private List<TruckInfo> truckInfos1;
     private List<TruckInfo> truckInfos2;
@@ -51,8 +52,7 @@ public class MultiResultController : MonoBehaviour {
             }
         }
 
-        Debug.Log("Truck1 " + truckInfos1.Count);
-        Debug.Log("Truck2 " + truckInfos2.Count);
+        confirmButton.interactable = false;
     }
     
     void Update() {
@@ -134,10 +134,11 @@ public class MultiResultController : MonoBehaviour {
 
         result1Text.gameObject.SetActive(true);
         result2Text.gameObject.SetActive(true);
+
         if(score1 == score2) {
             result1Text.text = result2Text.text = "引き分け";
         }
-        if (score1 > score2) {
+        else if (score1 > score2) {
             result1Text.text = "勝ち";
             result2Text.text = "負け";
         } else {
@@ -145,11 +146,11 @@ public class MultiResultController : MonoBehaviour {
             result2Text.text = "勝ち";
         }
 
-        isDrawn = true;
+        confirmButton.interactable = true;
         yield break;
     }
 
-    public void OnClickDecideButton() {
+    public void OnClickConfirmButton() {
         if (isDrawn) {
             selectForm.SetActive(true);
         }

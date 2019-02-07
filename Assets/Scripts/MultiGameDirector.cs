@@ -9,6 +9,8 @@ public class MultiGameDirector : GameDirector {
     [SerializeField] private GameObject truck2;
     [SerializeField] private GameObject description1;
     [SerializeField] private GameObject description2;
+    [SerializeField] private GameObject escText;
+    [SerializeField] private GameObject selectForm;
 
     Text weightText1;
     Text weightText2;
@@ -33,7 +35,15 @@ public class MultiGameDirector : GameDirector {
 
         weightText1.text = truckInfo1.SumWeight + "/" + truckInfo1.MaxWeight;
         weightText2.text = truckInfo2.SumWeight + "/" + truckInfo2.MaxWeight;
-        
+
+        if ((!readyP1 || !readyP2) && Input.GetKeyDown(KeyCode.Escape)) {
+            if (selectForm.activeSelf) {
+                selectForm.SetActive(false);
+            } else {
+                selectForm.SetActive(true);
+            }
+        }
+
         if (!readyP1 && Input.GetKeyDown(KeyCode.E)) {
             readyP1 = true;
             description1.SetActive(false);
@@ -41,6 +51,9 @@ public class MultiGameDirector : GameDirector {
         if(!readyP2 && Input.GetKeyDown(KeyCode.Keypad9)){
             readyP2 = true;
             description2.SetActive(false);
+        }
+        if (readyP1 && readyP2) {
+            escText.SetActive(false);
         }
     }
 

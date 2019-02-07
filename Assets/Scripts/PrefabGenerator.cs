@@ -32,17 +32,25 @@ public class PrefabGenerator : MonoBehaviour{
 
     public int PopCreateBoxIndex(int playerNum) {
         if (playerNum == 1) {
-            return boxIndex1.Dequeue();
+            int index = boxIndex1.Dequeue();
+            boxIndex1.Enqueue(index);
+            return index;
         } else {
-            return boxIndex2.Dequeue();
+            int index = boxIndex2.Dequeue();
+            boxIndex2.Enqueue(index);
+            return index;
         }
     }
 
-    public int PopCreateTruckIndex(int playerNum) {
+    public int PopCreateTruckWeight(int playerNum) {
         if(playerNum == 1) {
-            return truckIndex1.Dequeue();
+            int weight = truckIndex1.Dequeue();
+            truckIndex1.Enqueue(weight);
+            return weight;
         } else {
-            return truckIndex2.Dequeue();
+            int weight = truckIndex2.Dequeue();
+            truckIndex2.Enqueue(weight);
+            return weight;
         }
     }
 }

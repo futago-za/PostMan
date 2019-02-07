@@ -13,6 +13,7 @@ public class ResultController : MonoBehaviour {
     [SerializeField] private Text highPriceText;
     [SerializeField] private Text sumPriceText;
     [SerializeField] private GameObject selectForm;
+    [SerializeField] private Button confirmButton;
     private List<TruckInfo> truckInfos;
     private int sumPrice = 0;
     private int sumBonus = 0;
@@ -23,9 +24,11 @@ public class ResultController : MonoBehaviour {
         GetComponent<FadeController>().FadeIn();
         truckInfos = MainGameController.getTruckInfos();
 
-        int[] highScores = ScoreManager.LoadData(SelectController.stageNum);
+        int[] highScores = ScoreManager.GetData(SelectController.stageNum);
         highScore = highScores[SelectController.getSelectStageNum()];
         highPriceText.text = highScore.ToString();
+
+        confirmButton.interactable = false;
     }
 	
 	void Update () {
@@ -83,16 +86,16 @@ public class ResultController : MonoBehaviour {
         sumPriceText.text = (sumPrice + sumBonus).ToString() + "円";
 
         if ((sumPrice + sumBonus) > highScore) {
-            int[] highScores = ScoreManager.LoadData(SelectController.stageNum);
+            int[] highScores = ScoreManager.GetData(SelectController.stageNum);
             highScores[SelectController.getSelectStageNum()] = sumPrice + sumBonus;
-            ScoreManager.SaveData(highScores);
+            ScoreManager.SetData(highScores);
         }
 
-        isDrawn = true;
+        confirmButton.interactable = true;
         yield break;
     }
 
-    public void OnClickDecideButton() {
+    public void OnClickConfirmButton() {
         if (isDrawn) {
             selectForm.SetActive(true);
         }

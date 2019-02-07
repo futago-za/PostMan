@@ -19,7 +19,7 @@ class TruckController : PlaceBase {
     float stopX;        //停車位置
     
 	void Start () {
-        truckInfo = new TruckInfo(gameDirector.GetComponent<PrefabGenerator>().PopCreateTruckIndex(playerNum), this.name);
+        truckInfo = new TruckInfo(gameDirector.GetComponent<PrefabGenerator>().PopCreateTruckWeight(playerNum), this.name);
         animator = GetComponent<Animator>();
         animator.SetBool("isopen", true);
         stopX = transform.position.x;
@@ -34,7 +34,7 @@ class TruckController : PlaceBase {
                     truckInfo.Push(new CardBoardBoxInfo(0, 0));
                 }
                 gameDirector.GetComponent<BaseGameController>().Save(truckInfo);
-                truckInfo = new TruckInfo(gameDirector.GetComponent<PrefabGenerator>().PopCreateTruckIndex(playerNum), this.name);
+                truckInfo = new TruckInfo(gameDirector.GetComponent<PrefabGenerator>().PopCreateTruckWeight(playerNum), this.name);
                 BackRun();
                 delta = 0f;
             }

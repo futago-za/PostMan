@@ -26,7 +26,7 @@ public class SelectController : MonoBehaviour {
         leftArrowColor = leftArrow.GetComponent<Image>().color;
         rightArrowColor = rightArrow.GetComponent<Image>().color;
         stageText = stageName.GetComponent<Text>();
-        highScores = ScoreManager.LoadData(stageNum);
+        highScores = ScoreManager.GetData(stageNum);
 
         GameObject.Find("SelectController").GetComponent<FadeController>().FadeIn();
     }

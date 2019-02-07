@@ -7,6 +7,7 @@ using UnityEngine.Video;
 public class DescriptionController : MonoBehaviour {
 
     [SerializeField] private Sprite[] descriptSprite;
+    [SerializeField] private Sprite firstPlayDescSprite;
     [SerializeField] private Image descriptImage;
     [SerializeField] private GameObject group;
     [SerializeField] private GameObject selectForm;
@@ -46,7 +47,14 @@ public class DescriptionController : MonoBehaviour {
             rightArrowColor.a = 0.5f;
             rightArrow.GetComponent<Image>().color = rightArrowColor;
             DecideButton.SetActive(true);
+            if(!FirstPlayManager.GetData())
+                descriptImage.sprite = firstPlayDescSprite;
+            else
+                descriptImage.sprite = descriptSprite[nowSelectStage];
         }
+
+        if (!FirstPlayManager.GetData())
+            return;
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
             selectForm.SetActive(!selectForm.activeSelf);
@@ -68,11 +76,21 @@ public class DescriptionController : MonoBehaviour {
         nowSelectStage++;
     }
 
-    public void OnDecideButton() {
+    public void OnConfirmButton() {
+        if (!FirstPlayManager.GetData()) {
+            FirstPlayManager.SetTrue();
+            GetComponent<FadeController>().FadeOut("Title");
+        }
         group.SetActive(false);
     }
 
     public void OnBackButton() {
+        selectForm.SetActive(false);
+    }
+
+    public void OnLookButton() {
+        nowSelectStage = 0;
+        group.SetActive(true);
         selectForm.SetActive(false);
     }
 

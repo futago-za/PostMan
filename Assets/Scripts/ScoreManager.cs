@@ -2,11 +2,11 @@
 
 public class ScoreManager : MonoBehaviour {
 
-    public static void SaveData(int[] highScore) {
+    public static void SetData(int[] highScore) {
         PlayerPrefsX.SetIntArray("Scores", highScore);
     }
 
-    public static int[] LoadData(int stageNum) {
+    public static int[] GetData(int stageNum) {
         return PlayerPrefsX.GetIntArray("Scores", 1000, stageNum);
     }
 }
